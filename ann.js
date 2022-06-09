@@ -36,7 +36,6 @@
     img.src = 'template.png';
 
 
-
     function addBrightness() {
       Caman("#canvas", img, function () {
         this.brightness(9);
@@ -206,7 +205,6 @@ document.getElementById('export').style.display = "block";
     var hwidth = msize[1]
 
     var bottomh = parseInt(msize[1]) - 90;
-
     var bottomt = parseInt(msize[1]) - 585;
     var bottomm = parseInt(msize[1]) - 455;
 
@@ -239,6 +237,11 @@ document.getElementById('export').style.display = "block";
 
 
 
+    var rightmh = parseInt(msize[0]) - 90;
+    var rightmt = parseInt(msize[0]) - 585;
+    var rightmm = parseInt(msize[0]) - 455;
+
+
 
 
 
@@ -251,6 +254,103 @@ document.getElementById('export').style.display = "block";
 
 
     }
+
+
+
+     if (postt!=1)  {
+
+        var image_h = 115;
+        var image_w = 115;
+
+
+
+        } else {
+          var image_h = 215;
+          var image_w = 215;
+
+
+        }
+
+        var rightmh = parseInt(msize[0]) - 90;
+        var rightmt = parseInt(msize[0]) - 585;
+        var rightmm = parseInt(msize[0]) - 455;
+
+
+        var allparts = document.getElementsByClassName('parts');
+        var wpadding = 0;
+        for (var i=0; i < allparts.length; i++) {
+            var inputcanv =  allparts[i].id;
+            console.log('inputcanv')
+            var incnt = document.getElementById(''+inputcanv);
+            var ictx = incnt.getContext('2d');
+            var sw = ictx.canvas.width;
+            var sh = ictx.canvas.height;
+
+            var srch = image_h;
+            var srcw = parseInt((sw * srch)/sh)
+            console.log(srch, srcw)
+            ctx.drawImage(incnt, rightmh - srcw - wpadding , 90, srcw,srch);
+            wpadding = wpadding + image_w + srcw;
+        }
+
+
+        var allparts = document.getElementsByClassName('users');
+        var wpadding = 0;
+        var imgp = bottomh;
+
+        myFontPT.load().then((font) => {
+          document.fonts.add(font);
+      })
+
+        //bottomh
+        //bottomt
+        //bottomm
+        for (var i=0; i < allparts.length; i++) {
+            var inputcanv =  allparts[i].id;
+            var usertext = document.getElementById('i'+inputcanv);
+            var uname = usertext.value;
+
+/*
+Boule Research Meeting
+Join us at 10:00 AM EST, 09 June 2022
+
+Exploring Decentralized max liquidity, min exposure, options protocol
+@jeff_unit
+@Halko500k
+
+*/
+
+            console.log('inputcanv')
+            var incnt = document.getElementById(''+inputcanv);
+            var ictx = incnt.getContext('2d');
+            var sw = ictx.canvas.width;
+            var sh = ictx.canvas.height;
+
+            var srch = image_h*2;
+            var srcw = parseInt((sw * srch)/sh)
+
+            console.log(srch, srcw)
+            ctx.drawImage(incnt, rightmh - srcw - wpadding , imgp - srch - 70 , srcw,srch);
+
+
+            ctx.fillStyle = color3;
+            var fbtdt = document.getElementById('fs_x').value;
+            ctx.font = fbtdt+"px Smaf";
+
+            var textWidth = ctx.measureText(uname).width;
+            console.log('textWidth',textWidth)
+            var user_w_delta = rightmh - textWidth;
+            console.log('user_w_delta',uname,user_w_delta,rightmh - srcw - wpadding)
+            ctx.fillText(uname, rightmh - srcw - wpadding, bottomh);
+
+
+
+
+            wpadding = wpadding + image_w + srcw;
+        }
+
+
+
 
     if (slogo !='none') {
 
@@ -270,6 +370,8 @@ document.getElementById('export').style.display = "block";
 
 
     }
+
+
 
 
 
@@ -811,7 +913,6 @@ var aaa = $('<span/>')
 
 function RemoveLastLine(x) {
     x.pop();
-
     return y
 }
 
@@ -915,6 +1016,100 @@ document.getElementById("bot_text_2").value='Welcome'
 });
 
 
+var ulogs = 100;
+
+const uinput = document.getElementById("userInput");
+uinput.onchange = function (ev) {
+
+  ulogs = ulogs + 1
+  var uList = $('#user')
+
+  var uuu = $('<span/>')
+      .addClass('btn')
+      .attr('id','userr_'+ulogs)
+      .appendTo(uList);
+
+
+
+      var fff = $('<canvas/>')
+           .addClass('users')
+          .attr('id','user_'+ulogs)
+          .appendTo(uuu);
+          var fff = $('<input/>')
+               .addClass('ipsusers')
+              .attr('id','iuser_'+ulogs)
+              .appendTo(uuu);
+
+
+  const fileu    = ev.target.files[0]; // get the file
+  const blobURLu = URL.createObjectURL(fileu);
+  const imgu     = new Image();
+  imgu.src       = blobURLu;
+
+  imgu.onerror = function () {
+    URL.revokeObjectURL(this.src);
+    console.log("Cannot load image");
+  };
+
+  imgu.onload = function () {
+    URL.revokeObjectURL(this.src);
+    const mime_typeu = "image/jpeg";
+    const qualityu = qualityRate(fileu.size);
+    const ucanvas  = document.getElementById('user_'+ulogs);
+    ucanvas.width  = imgu.width;
+    ucanvas.height = imgu.height;
+    const ctxu     = ucanvas.getContext("2d");
+    ctxu.drawImage(imgu, 0, 0, imgu.width, imgu.height);
+  };
+};
+
+
+
+
+var plogs = 100;
+
+const partinput = document.getElementById("partInput");
+partinput.onchange = function (ev) {
+
+  plogs = plogs + 1
+  var pList = $('#part')
+
+  var ppp = $('<span/>')
+      .addClass('btn')
+      .attr('data-s','lcv_'+plogs)
+      .attr('data-t','logo_'+plogs)
+      .attr('id','parts_'+plogs)
+      .appendTo(pList);
+
+      var vvv = $('<canvas/>')
+           .addClass('parts')
+          .attr('id','part_'+plogs)
+          .appendTo(ppp);
+
+
+  const filep    = ev.target.files[0]; // get the file
+  const blobURLp = URL.createObjectURL(filep);
+  const imgp     = new Image();
+  imgp.src       = blobURLp;
+
+  imgp.onerror = function () {
+    URL.revokeObjectURL(this.src);
+    console.log("Cannot load image");
+  };
+
+  imgp.onload = function () {
+    URL.revokeObjectURL(this.src);
+    const mime_typep = "image/jpeg";
+    const qualityp = qualityRate(filep.size);
+    const partcanvas  = document.getElementById('part_'+plogs);
+    partcanvas.width  = imgp.width;
+    partcanvas.height = imgp.height;
+    const ctxp     = partcanvas.getContext("2d");
+    ctxp.drawImage(imgp, 0, 0, imgp.width, imgp.height);
+  };
+};
+
+
 
 var nlogs = 100;
 
@@ -979,7 +1174,6 @@ logoinput.onchange = function (ev) {
 
   };
 };
-
 
 
 const input = document.getElementById("fileInput");

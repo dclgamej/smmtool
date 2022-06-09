@@ -17,6 +17,8 @@ var posttypes = [
   { "type": "HQ", 	"color": 30}
 ]
 
+var tags = [ "bankless", "dao", "banklessHQ", "DesignGuild"]
+
 
 var filter = [
   { "type": "dark",      "pallete": "x;#000000;#ffffff;#7d7d7d;#d02128;-30;10"},
