@@ -525,6 +525,78 @@ if (t1!='') {
                      */
 
 
+
+                                          if (postt!=0) {
+
+                                          var textsd = $("#postText").val();
+                                          var linespop = textsd.split("\n");
+
+                                          console.log(linespop)
+
+
+
+
+                                          var postTexth = 50
+                                            for (var g=0; g < linespop.length; g++) {
+
+                                          var m3 = linespop[g]
+                                          if (m3!='') {
+                                          if (m3[0].toLowerCase()=='b') {exc = 3;} else {exc = 0;}
+                                          }
+                                          img_w_delta = 90 - exc
+
+
+                                          if (m3=='') { } else  {
+                                              console.log('ff',fw, deltamid,m3, m3[0],m3[1] )
+                                          ctx.fillStyle = color2;
+                                            ctx.font = "30px Smaf";
+                                            var dlt = 0
+                                            var fw=0
+                                            if ((m3[0]=='#') && (m3[1]!='#') ) {
+                                              console.log('ff')
+                                                ctx.font = "30px Smaf";
+                                              ctx.fillStyle = color3;
+                                              m3 = m3.substr(1);
+                                                deltamid = deltamid+ 30
+                                                fw=1
+                                            }
+                                            if ((m3[0]=='#') && (m3[1]=='#') ) {
+                                                ctx.font = "30px Smaf";
+                                                    console.log('f2f')
+                                              ctx.fillStyle = color4;
+                                              m3 = m3.substr(2);
+                                                deltamid = deltamid+ 140
+                                                  fw=2
+                                            }
+                                              console.log('ff',fw, deltamid,m3, m3[0],m3[1] )
+                                              var alitype = 'left'
+                                              var textWidth = ctx.measureText(m3).width;
+                                              if (alitype == 'right') { img_w_delta = parseInt(rightmh  - textWidth);}
+                                              if (alitype == 'center') { img_w_delta = parseInt((rightmh + 90 - textWidth)/2); }
+                                              if (alitype == 'left') {}
+
+                                          ctx.fillText(m3, img_w_delta, 625 + deltamid+ postTexth*g);
+                                          if (fw==1) {
+
+                                            deltamid = deltamid+ 40
+                                          }
+                                          if (fw==2) {
+
+                                            deltamid = deltamid+ 50
+                                          }
+                                          }
+
+                                          if(g ==( linespop.length-1)) {
+                                            ctx.fillStyle = color3;
+                                              ctx.font = "30px Smaf";
+                                            ctx.fillText(m4, img_w_delta, 525 + deltamid+ postTexth*(g+2));
+                                            }
+
+
+
+                                            }
+                     }
+
                        // --------------------------bottom ------------------------
 
                        if (b2!='') {
